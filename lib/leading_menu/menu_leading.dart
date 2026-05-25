@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LeadingMenu extends StatelessWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -29,7 +28,7 @@ class LeadingMenu extends StatelessWidget {
               const SizedBox(height: 16),
               buildMenuIteam(
                 text: 'Settings',
-                icon: (FontAwesomeIcons.gear),
+                icon: (Icons.settings_outlined),
               ),
               const SizedBox(height: 24),
               const Divider(

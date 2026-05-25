@@ -1,17 +1,18 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:animated_flip_counter/animated_flip_counter.dart';
-import 'package:animated_floating_buttons/animated_floating_buttons.dart';
+import 'package:animated_floating_buttons/widgets/animated_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_tasbeeh/bottom_menu/bottom_menu.dart';
-import 'package:flutter_tasbeeh/color/gradient_text.dart';
-import 'package:flutter_tasbeeh/extension/icons/IconTasbeeh.dart';
-import 'package:flutter_tasbeeh/leading_menu/menu_leading.dart';
+// ignore: unnecessary_import
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 import '../azkar_and_dua/page_view.dart';
+import '../bottom_menu/bottom_menu.dart';
+import '../color/gradient_text.dart';
+import '../extension/icons/IconTasbeeh.dart';
+import '../leading_menu/menu_leading.dart';
 
 class BodyTasbeeh extends StatefulWidget {
   const BodyTasbeeh({super.key});
@@ -30,19 +31,20 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
   final _key2 = GlobalKey();
   final _key3 = GlobalKey();
   final _key4 = GlobalKey();
+  late final ShowcaseView _showcaseView;
+
   @override
   //initState make when you openProject automaticilly start ShowCaseView
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => ShowCaseWidget.of(context).startShowCase(
-              [
-                _key1,
-                _key2,
-                _key3,
-                _key4,
-              ],
-            ));
+    _showcaseView = ShowcaseView.register();
+  }
+
+  @override
+  void dispose() {
+    _showcaseView.unregister();
+    _textController.dispose();
+    super.dispose();
   }
 
   //Counter Value;
@@ -112,10 +114,10 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
     // final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFFFDF4E5),
+      backgroundColor: const Color(0xFFFDF4E5),
       drawer: LeadingMenu(),
       appBar: _appBar(),
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: const BottomNavigation(),
       key: _key,
       body: Stack(
         children: <Widget>[
@@ -123,7 +125,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
           Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 opacity: 1,
                 image: AssetImage('assets/image/first_screen.jpg'),
@@ -131,7 +133,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
             ),
           ),
           //PageView
-          AzkarAndDua(),
+          const AzkarAndDua(),
           //Counter buttons
           Padding(
             padding: const EdgeInsets.only(top: 320),
@@ -143,8 +145,8 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
           //Fab list
           fabButtons: <Widget>[float1(), float2(), float3()],
           key: key,
-          colorStartAnimation: Color(0xE7BB9B49),
-          colorEndAnimation: Color(0xE7BB9B49),
+          colorStartAnimation: const Color(0xE7BB9B49),
+          colorEndAnimation: const Color(0xE7BB9B49),
           animatedIconData: AnimatedIcons.menu_close //To principal button
           ),
     );
@@ -153,7 +155,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
   Column _counter() {
     return Column(
       children: [
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -174,36 +176,36 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
                   key: _key4,
                   title: 'Tap the button to Reset',
                   description: 'On long Press to reset your all Result',
-                  shapeBorder: CircleBorder(),
-                  showcaseBackgroundColor: Color(0xFFF9E2C8),
-                  descTextStyle: TextStyle(
+                  targetShapeBorder: const CircleBorder(),
+                  tooltipBackgroundColor: const Color(0xFFF9E2C8),
+                  descTextStyle: const TextStyle(
                     color: Color(0xFF313030),
                     fontFamily: 'Bodoni',
                     fontWeight: FontWeight.w600,
                   ),
-                  overlayPadding: EdgeInsets.all(8),
-                  contentPadding: EdgeInsets.all(20),
+                  targetPadding: const EdgeInsets.all(8),
+                  tooltipPadding: const EdgeInsets.all(20),
                   child: Container(
                     // ignore: sort_child_properties_last
-                    child: Icon(
+                    child: const FaIcon(
                       FontAwesomeIcons.rotate,
                       color: Color(0xE7BB9B49),
                       size: 28,
                     ),
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 252, 233, 213),
+                        color: const Color.fromARGB(255, 252, 233, 213),
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: [
                           BoxShadow(
                             //top right shadow
                             color: Colors.grey.shade600,
-                            offset: Offset(4, 4),
+                            offset: const Offset(4, 4),
                             blurRadius: 15,
                             spreadRadius: 1,
                           ),
                           //bottom left shadow
-                          BoxShadow(
+                          const BoxShadow(
                             //top right shadow
                             color: Color.fromARGB(255, 252, 233, 213),
                             offset: Offset(-4, -4),
@@ -219,21 +221,21 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
             Showcase(
               key: _key2,
               description: 'In there you can see your Result',
-              shapeBorder: RoundedRectangleBorder(),
-              showcaseBackgroundColor: Color(0xFFF9E2C8),
-              descTextStyle: TextStyle(
+              targetShapeBorder: const RoundedRectangleBorder(),
+              tooltipBackgroundColor: const Color(0xFFF9E2C8),
+              descTextStyle: const TextStyle(
                 color: Color(0xFF313030),
                 fontFamily: 'Bodoni',
                 fontWeight: FontWeight.w600,
               ),
-              overlayPadding: EdgeInsets.all(8),
-              contentPadding: EdgeInsets.all(20),
+              targetPadding: const EdgeInsets.all(8),
+              tooltipPadding: const EdgeInsets.all(20),
               child: Container(
                 // ignore: sort_child_properties_last
                 child: Center(
                   child: AnimatedFlipCounter(
                     value: _number,
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       color: Color(0xE7BB9B49),
                       fontSize: 36,
                     ),
@@ -242,18 +244,18 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
                 height: 68,
                 width: 120,
                 decoration: BoxDecoration(
-                    color: Color(0xFFFCE9D5),
+                    color: const Color(0xFFFCE9D5),
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
                         //top right shadow
                         color: Colors.grey.shade600,
-                        offset: Offset(4, 4),
+                        offset: const Offset(4, 4),
                         blurRadius: 15,
                         spreadRadius: 1,
                       ),
                       //bottom left shadow
-                      BoxShadow(
+                      const BoxShadow(
                         //top right shadow
                         color: Color.fromARGB(255, 252, 233, 213),
                         offset: Offset(-4, -4),
@@ -269,55 +271,53 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
               child: Showcase(
                 key: _key3,
                 description: 'In there you can see your how much your Tasbeeh',
-                shapeBorder: CircleBorder(),
-                showcaseBackgroundColor: Color(0xFFF9E2C8),
-                descTextStyle: TextStyle(
+                targetShapeBorder: const CircleBorder(),
+                tooltipBackgroundColor: const Color(0xFFF9E2C8),
+                descTextStyle: const TextStyle(
                   color: Color(0xFF313030),
                   fontFamily: 'Bodoni',
                   fontWeight: FontWeight.w600,
                 ),
-                overlayPadding: EdgeInsets.all(8),
-                contentPadding: EdgeInsets.all(20),
+                targetPadding: const EdgeInsets.all(8),
+                tooltipPadding: const EdgeInsets.all(20),
                 child: Container(
                   // ignore: sort_child_properties_last
                   child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Column(
-                        children: [
-                          Text(
-                            _howMuchTasbeeh.toString(),
-                            style: TextStyle(
-                              color: Color(0xE7BB9B49),
-                              fontSize: 34,
-                            ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _howMuchTasbeeh.toString(),
+                          style: const TextStyle(
+                            color: Color(0xE7BB9B49),
+                            fontSize: 34,
                           ),
-                          Text(
-                            'Your Tasbeeh',
-                            style: TextStyle(
-                              color: Color(0xE7BB9B49),
-                              fontSize: 10,
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        const Text(
+                          'Your Tasbeeh',
+                          style: TextStyle(
+                            color: Color(0xE7BB9B49),
+                            fontSize: 10,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   height: 70,
                   width: 72,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 252, 233, 213),
+                      color: const Color.fromARGB(255, 252, 233, 213),
                       borderRadius: BorderRadius.circular(14),
                       boxShadow: [
                         BoxShadow(
                           //top right shadow
                           color: Colors.grey.shade600,
-                          offset: Offset(4, 4),
+                          offset: const Offset(4, 4),
                           blurRadius: 15,
                           spreadRadius: 1,
                         ),
                         //bottom left shadow
-                        BoxShadow(
+                        const BoxShadow(
                           //top right shadow
                           color: Color.fromARGB(255, 252, 233, 213),
                           offset: Offset(-4, -4),
@@ -330,7 +330,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
             )
           ],
         ),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         //to add number
         GestureDetector(
           onTap: () {
@@ -341,18 +341,18 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
             height: 180,
             width: 180,
             decoration: BoxDecoration(
-              color: Color(0xFFFCE9D5),
+              color: const Color(0xFFFCE9D5),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   //top right shadow
                   color: Colors.grey.shade600,
-                  offset: Offset(4, 4),
+                  offset: const Offset(4, 4),
                   blurRadius: 15,
                   spreadRadius: 1,
                 ),
                 //bottom left shadow
-                BoxShadow(
+                const BoxShadow(
                   //top right shadow
                   color: Color.fromARGB(255, 252, 233, 213),
                   offset: Offset(-4, -4),
@@ -364,16 +364,16 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
             child: Showcase(
               key: _key1,
               description: 'Tap the button to count',
-              shapeBorder: CircleBorder(),
-              showcaseBackgroundColor: Color(0xFFF9E2C8),
-              descTextStyle: TextStyle(
+              targetShapeBorder: const CircleBorder(),
+              tooltipBackgroundColor: const Color(0xFFF9E2C8),
+              descTextStyle: const TextStyle(
                 color: Color(0xFF313030),
                 fontFamily: 'Bodoni',
                 fontWeight: FontWeight.w600,
               ),
-              overlayPadding: EdgeInsets.all(8),
-              contentPadding: EdgeInsets.all(20),
-              child: Icon(
+              targetPadding: const EdgeInsets.all(8),
+              tooltipPadding: const EdgeInsets.all(20),
+              child: const FaIcon(
                 FontAwesomeIcons.plus,
                 color: Color(0xE7BB9B49),
                 size: 28,
@@ -390,7 +390,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
       toolbarHeight: 55,
       elevation: 0,
       centerTitle: true,
-      backgroundColor: Color(0xFFFDF4E5),
+      backgroundColor: const Color(0xFFFDF4E5),
       title: const GradientText(
         "iTasbeeh",
         gradient: LinearGradient(
@@ -411,29 +411,31 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 6, 10, 6),
           child: AnimSearchBar(
-              closeSearchOnSuffixTap: true,
-              width: 390,
-              animationDurationInMilli: 675,
-              textController: _textController,
-              helpText: 'Search by iTasbeeh...',
-              color: Color(0xFFFDF4E5),
-              prefixIcon: Icon(
-                FontAwesomeIcons.magnifyingGlass,
-                color: Color.fromRGBO(187, 155, 73, 25),
-                size: 18,
-              ),
-              suffixIcon: const Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              onSuffixTap: () {
-                setState(() {});
-              }),
+            closeSearchOnSuffixTap: true,
+            width: 390,
+            animationDurationInMilli: 675,
+            textController: _textController,
+            helpText: 'Search by iTasbeeh...',
+            color: const Color(0xFFFDF4E5),
+            prefixIcon: const FaIcon(
+              FontAwesomeIcons.magnifyingGlass,
+              color: Color.fromRGBO(187, 155, 73, 25),
+              size: 18,
+            ),
+            suffixIcon: const Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            onSuffixTap: () {
+              setState(() {});
+            },
+            onSubmitted: (value) {},
+          ),
         )
       ],
       leading: IconButton(
         onPressed: () => _key.currentState!.openDrawer(),
-        icon: Icon(
+        icon: const Icon(
           IconTasbeeh.menuicon,
           color: Color(0xE7BB9B49),
         ),
@@ -443,7 +445,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
 
   ///float1 for floatingActionButton Lists
   Widget float1() {
-    return FloatingActionButton(
+    return const FloatingActionButton(
       backgroundColor: Color(0xE7BB9B49),
       onPressed: null,
       heroTag: "Vibration",
@@ -454,7 +456,7 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
 
   ///float2 for floatingActionButton Lists
   Widget float2() {
-    return FloatingActionButton(
+    return const FloatingActionButton(
       backgroundColor: Color(0xE7BB9B49),
       onPressed: null,
       heroTag: "DarkMode",
@@ -465,20 +467,9 @@ class _BodyTasbeehState extends State<BodyTasbeeh> {
 
   ///float3 for floatingActionButton Lists
   Widget float3() {
-    return FloatingActionButton(
+    return const FloatingActionButton(
       backgroundColor: Color(0xE7BB9B49),
-      onPressed: () {
-        setState(() {
-          ShowCaseWidget.of(context).startShowCase(
-            [
-              _key1,
-              _key2,
-              _key3,
-              _key4,
-            ],
-          );
-        });
-      },
+      onPressed: null,
       heroTag: "info",
       tooltip: 'info',
       child: Icon(Icons.info_outline_rounded),

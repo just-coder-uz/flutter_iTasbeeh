@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasbeeh/body/body.dart';
-import 'package:showcaseview/showcaseview.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ShowCaseWidget(
-        builder: Builder(
-          builder: (context) => const BodyTasbeeh(),
-        ),
-      ),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: BodyTasbeeh(),
+        );
+      },
     );
   }
 }
